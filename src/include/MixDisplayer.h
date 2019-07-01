@@ -5,7 +5,7 @@
 #include <vector>
 #include <QPushButton>
 #include <QHBoxLayout>
-//#include "OnePassSynth.h"
+#include "OnePassSynth.h"
 
 #define DEBUG 1
 
@@ -64,18 +64,18 @@ private:
 
 	//Í¼Ïñ×ÊÔ´
 #ifdef DEBUG
-#define DETECT_PATH "C:\\GroupProject\\resources\\detect.png"
-#define DISP_PATH "C:\\GroupProject\\resources\\disp.png"
-#define SINK_PATH "C:\\GroupProject\\resources\\sink.png"
-#define DROPLET_PATH "C:\\GroupProject\\resources\\droplet.png"
-#define PAUSE_PATH "C:\\GroupProject\\resources\\pause.png"
-#define START_PATH "C:\\GroupProject\\resources\\start.png"
-#define RESTART_PATH "C:\\GroupProject\\resources\\restart.png"
-#define NEXT_STEP_PATH "C:\\GroupProject\\resources\\next_step.png"
-#define SELECT_FILE_PATH "C:\\GroupProject\\resources\\file.png"
-#define ICON_PATH "C:\\GroupProject\\resources\\icon.png"
+#define DETECT_PATH "..\\resources\\detect.png"
+#define DISP_PATH "resources\\disp.png"
+#define SINK_PATH "resources\\sink.png"
+#define DROPLET_PATH "resources\\droplet.png"
+#define PAUSE_PATH "..\\resources\\pause.png"
+#define START_PATH "..\\resources\\start.png"
+#define RESTART_PATH "..\\resources\\restart.png"
+#define NEXT_STEP_PATH "resources\\next_step.png"
+#define SELECT_FILE_PATH "resources\\file.png"
+#define ICON_PATH "resources\\icon.png"
 
-#define PROCESSOR_PATH "C:\\GroupProject\\resources\\src.exe"
+#define PROCESSOR_PATH "resources\\src.exe" // TODO: need change when not needed
 #endif // DEBUG
 
 	QImage Detector_img;
@@ -192,4 +192,3 @@ const int Example[10][8][6]=
 	{0,0,0,0,0,0},
 	},
 	};
-
