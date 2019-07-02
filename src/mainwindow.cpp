@@ -96,7 +96,7 @@ void MainWindow::run(){
 //            displayer = new MixDisplayer(height, width, time+1,ops, window);
 //            mainBox->addWidget(displayer, 3);
 //            resize(width*100 + 400, height*100 + 300);
-            displayer = new DisplayDialog(height, width, time+1, ops, this);
+            displayer = new DisplayDialog(height, width, t+1, ops, this);
             displayer->show();
             break;
         }
