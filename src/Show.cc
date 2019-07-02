@@ -54,7 +54,13 @@ void GetFlow::operator()(const int d_tot,GRBModel& m) {
 	cout << "//////////////////////////////////////////////////" << endl;
 	int source1 = (int)m.getVarByName("source1").get(GRB_DoubleAttr_X);
 	int source0 = (int)m.getVarByName("source0").get(GRB_DoubleAttr_X);
-	int f[10][1025][1025] = { 0 };
+  int*** f;
+  f = new int**[10];
+  for(int i=0;i<10;i++){
+    f[i] = new int*[1025];
+    for(int j=0;j<1025;j++)
+      f[i][j] = new int[1025];
+  }
 
 	for (int i = 0; i < d_tot; i++) {
 		int point1 = pow(2, i) + 1;
@@ -107,5 +113,9 @@ void GetFlow::operator()(const int d_tot,GRBModel& m) {
 	cout << source1 << "*" << num << endl;
 	cout << "//////////////////////////////////////////////////" << endl;
 	cout << f[4][0][3];
+
+  for(int i=0;i<10;i++)
+    for(int j=0;j<1025;j++)
+        delete[] f[i][j];
 }
 

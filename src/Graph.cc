@@ -319,6 +319,8 @@ void Graph::translator() {
 		for (int j = 0; j < 1025; j++)
 			for (int k = 0; k < 1025; k++)
 				f[i][j][k] = 0;
+  int source0 = (int)model.getVarByName("source0").get(GRB_DoubleAttr_X);
+  int source1 = (int)model.getVarByName("source1").get(GRB_DoubleAttr_X);
 
 	for (int i = 0; i < d_tot; i++) {
 		int point1 = pow(2, i) + 1;
@@ -343,8 +345,9 @@ void Graph::translator() {
 		}
 	}
 
-	int count = 1;
-	vector<int*>memory[2015], dis0, dis1, mix, edge, target;
+  int dispense = 1;
+	int count = source0+source1+1;
+	vector<int*>memory[2015], dis0, dis1, mix, edge;
 
 	for (int i = 1; i <= d_tot; i++) {
 		int point1 = pow2(i - 1) + 1;
@@ -365,9 +368,9 @@ void Graph::translator() {
 							memory[c].push_back(new int[2]{ count,2 });
 							count++;
 							if (kc1 == 0) {
-								tempkc1 = count;
-								dis0.push_back(new int[2]{ count,0 });
-								count++;
+								tempkc1 = dispense;
+								dis0.push_back(new int[2]{ tempkc1,0 });
+                dispense++;
 							}
 							else {
 								for (int n = 0; n < (int)memory[kc1].size(); n++)
@@ -384,9 +387,9 @@ void Graph::translator() {
 							}
 
 							if (kc2 == maxc) {
-								tempkc2 = count;
-								dis1.push_back(new int[2]{ count,maxc });
-								count++;
+								tempkc2 = dispense;
+								dis1.push_back(new int[2]{ tempkc2,maxc });
+                dispense++;
 							}
 							else {
 								for (int n = 0; n < (int)memory[kc2].size(); n++)
@@ -420,9 +423,9 @@ void Graph::translator() {
 							memory[c].push_back(new int[2]{ count,2 });
 							count++;
 							if (kc1 == 0) {
-								tempkc1 = count;
-								dis0.push_back(new int[2]{ count,0 });
-								count++;
+								tempkc1 = dispense;
+								dis0.push_back(new int[2]{ tempkc1,0 });
+                dispense++;
 							}
 							else {
 								for (int n = 0; n < (int)memory[kc1].size(); n++)
@@ -439,9 +442,9 @@ void Graph::translator() {
 							}
 
 							if (kc2 == maxc) {
-								tempkc2 = count;
-								dis1.push_back(new int[2]{ count,maxc });
-								count++;
+								tempkc2 = dispense;
+								dis1.push_back(new int[2]{ dispense,maxc });
+                dispense++;
 							}
 							else {
 								for (int n = 0; n < (int)memory[kc2].size(); n++)
@@ -465,38 +468,28 @@ void Graph::translator() {
 		}
 	}
 
+  //const int detect = count;
+  //count++;
+
+  const int waste = count;
+  count++;
 
 	for (int i = 0; i < (int)TCS.size(); i++) {
 		int c = TCS[i].first;
 		int num = TCS[i].second;
 		for (int j = 0; j < num; j++) {
-			int temp2 = count;
 			int temp1 = -1;
-			target.push_back(new int[2]{ count,c });
-			count++;
-			for (int k = 0; k < (int)memory[c].size(); k++)
+			for (int k = 0; k < (int)memory[c].size(); k+=2)
 				if (memory[c][k][1]>0) {
 					temp1 = memory[c][k][0];
-					memory[c][k][1]--;
+					memory[c][k][1]=0;
+          edge.push_back(new int[2]{temp1,waste});
 					break;
 				}
-			if (temp1 == -1) {
-				cout << "Wrong Answer! in target" << endl;
-				system("pause");
-				return;
-			}
-			edge.push_back(new int[2]{ temp1, temp2 });
+			//edge.push_back(new int[2]{ temp1, detect });
 		}
 	}
 
-	const int waste = count;
-	count++;
-	
-	for(int i=0;i<(int)target.size();i++){
-		edge.push_back(new int[2]{target[i][0],waste});
-	}
-
-	
 
 	for (int i = 0; i <= maxc; i++) {
 		if ((int)memory[i].size() == 0)
@@ -521,8 +514,7 @@ void Graph::translator() {
 	for (int i = 0; i < (int)mix.size(); i++)
         out << "NODE (" << mix[i][0] << ", MIX, " << mix[i][1] << ", 1, MIX" << i << ")" << endl;
 
-	for (int i = 0; i < (int)target.size(); i++) 
-		out << "NODE (" << target[i][0] << ", DETECT, " << target[i][1] << ", 1, DETECT1)" << endl;
+	//out << "NODE (" << detect << ", OUTPUT, output, OUT1)" << endl;
 
 	out << "NODE (" << waste << ", OUTPUT, output, OUT1)" << endl;
 
@@ -537,19 +529,13 @@ void Graph::translator() {
         if(temp==-1)
             for(int j=0;j<dis1.size();j++)
                 if(dis1[j][0] == edge[i][0]){
-                    temp = 1;
+                    temp = maxc;
                     break;
                 }
         if(temp==-1)
             for(int j=0;j<mix.size();j++)
                 if(mix[j][0] == edge[i][0]){
                     temp = mix[j][1];
-                    break;
-                }
-        if(temp==-1)
-            for(int j=0;j<target.size();j++)
-                if(target[j][0] == edge[i][0]){
-                    temp = target[j][1];
                     break;
                 }
         out << temp << ")" << endl;
