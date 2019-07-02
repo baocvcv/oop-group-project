@@ -465,8 +465,7 @@ void Graph::translator() {
 		}
 	}
 
-	const int waste = count;
-	count++;
+
 	for (int i = 0; i < (int)TCS.size(); i++) {
 		int c = TCS[i].first;
 		int num = TCS[i].second;
@@ -487,9 +486,17 @@ void Graph::translator() {
 				return;
 			}
 			edge.push_back(new int[2]{ temp1, temp2 });
-			edge.push_back(new int[2]{ temp2, waste });
 		}
 	}
+
+  const int waste = count;
+  count++;
+  
+  for(int i=0;i<(int)target.size();i++){
+    edge.push_back(new int[2]{target[i][0],waste});
+  }
+
+  
 
 	for (int i = 0; i <= maxc; i++) {
 		if ((int)memory[i].size() == 0)

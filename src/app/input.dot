@@ -1,0 +1,12 @@
+graph "GRAPH3" {
+1 [label="DIS0"]
+2 [label="DIS1"]
+0 [label="MIX0"]
+3 [label="DETECT1"]
+4 [label="OUT1"]
+1 -- 0
+2 -- 0
+0 -- 3
+3 -- 4
+0 -- 4
+}
