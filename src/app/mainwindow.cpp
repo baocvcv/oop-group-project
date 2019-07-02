@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include "Graph.h"
 #include "GraphCreator.h"
 #include "OnePassSynth.h"
@@ -11,10 +10,9 @@
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent)
 {
-    ui->setupUi(this);
+    resize(150, 230);
 
     displayer = nullptr;
 
