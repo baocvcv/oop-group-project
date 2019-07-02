@@ -73,12 +73,12 @@ inline GRBVar Graph::f(int d,int a,int b){
   string name = "floor"+to_string(d)+"_"+to_string(a)+"_"+to_string(b);
   if(d==-1)
     name = "source" + to_string(b);
-    if (d == d_tot) {
-        if (b == 0)
-            name = "waste_" + to_string(a);
-        if (b == 1)
-            name = "target_" + to_string(a);
-    }
+  if (d == d_tot) {
+    if (b == 0)
+      name = "waste_" + to_string(a);
+    if (b == 1)
+      name = "target_" + to_string(a);
+  }
   return model.getVarByName(name);
 }
 

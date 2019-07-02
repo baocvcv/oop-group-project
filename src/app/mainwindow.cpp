@@ -97,7 +97,6 @@ void MainWindow::run(){
     int N = graph->get_d();
     graph->Init(N);
     graph->compute();
-    graph->print();
     graph->translator();
 
     OnePassSynth ops("input.txt");
@@ -113,6 +112,7 @@ void MainWindow::run(){
 //            resize(width*100 + 400, height*100 + 300);
             displayer = new DisplayDialog(height, width, time+1, ops, this);
             displayer->show();
+            break;
         }
     }
 }
