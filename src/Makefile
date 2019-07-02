@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I. -Iinclude -I/opt/gurobi811/linux64/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -I. -isystem /usr/include/libdrm -I/usr/lib/qt/mkspecs/linux-g++
+INCPATH       = -I. -I. -Iinclude -I../../.gurobi811/linux64/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -I. -isystem /usr/include/libdrm -I/usr/lib/qt/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -37,10 +37,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = app1.0.0
-DISTDIR = /home/fred/Projects/oop-group-project/src/.tmp/app1.0.0
+DISTDIR = /home/cyx/oop-group-project/src/.tmp/app1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now
-LIBS          = $(SUBLIBS) -lz3 -L/opt/gurobi811/linux64/lib -lgurobi_c++ -lgurobi81 -lQt5Widgets -lQt5Gui -lQt5Core /usr/lib/libGL.so -lpthread   
+LIBS          = $(SUBLIBS) -lz3 -L/home/cyx/.gurobi811/linux64/lib -lgurobi_c++ -lgurobi81 -lQt5Widgets -lQt5Gui -lQt5Core /usr/lib/libGL.so -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -154,9 +154,6 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_lib_designer_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_designercomponents_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_devicediscovery_support_private.pri \
-		/usr/lib/qt/mkspecs/modules/qt_lib_dtkcore.pri \
-		/usr/lib/qt/mkspecs/modules/qt_lib_dtkwidget.pri \
-		/usr/lib/qt/mkspecs/modules/qt_lib_dtkwm.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_edid_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_egl_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri \
@@ -266,6 +263,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -395,9 +393,6 @@ Makefile: app.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mkspecs/f
 		/usr/lib/qt/mkspecs/modules/qt_lib_designer_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_designercomponents_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_devicediscovery_support_private.pri \
-		/usr/lib/qt/mkspecs/modules/qt_lib_dtkcore.pri \
-		/usr/lib/qt/mkspecs/modules/qt_lib_dtkwidget.pri \
-		/usr/lib/qt/mkspecs/modules/qt_lib_dtkwm.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_edid_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_egl_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri \
@@ -507,6 +502,7 @@ Makefile: app.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mkspecs/f
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -613,9 +609,6 @@ Makefile: app.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mkspecs/f
 /usr/lib/qt/mkspecs/modules/qt_lib_designer_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_designercomponents_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_devicediscovery_support_private.pri:
-/usr/lib/qt/mkspecs/modules/qt_lib_dtkcore.pri:
-/usr/lib/qt/mkspecs/modules/qt_lib_dtkwidget.pri:
-/usr/lib/qt/mkspecs/modules/qt_lib_dtkwm.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_edid_support_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_egl_support_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri:
@@ -725,6 +718,7 @@ Makefile: app.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mkspecs/f
 /usr/lib/qt/mkspecs/features/qt_config.prf:
 /usr/lib/qt/mkspecs/linux-g++/qmake.conf:
 /usr/lib/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/qt/mkspecs/features/exclusive_builds.prf:
 /usr/lib/qt/mkspecs/features/toolchain.prf:
 /usr/lib/qt/mkspecs/features/default_pre.prf:
@@ -806,7 +800,7 @@ moc_displaydialog.cpp: include/displaydialog.h \
 		include/MixDisplayer.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/fred/Projects/oop-group-project/src/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/fred/Projects/oop-group-project/src -I/home/fred/Projects/oop-group-project/src -I/home/fred/Projects/oop-group-project/src/include -I/opt/gurobi811/linux64/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/8.3.0 -I/usr/include/c++/8.3.0/x86_64-pc-linux-gnu -I/usr/include/c++/8.3.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include-fixed -I/usr/include include/displaydialog.h -o moc_displaydialog.cpp
+	/usr/bin/moc $(DEFINES) --include /home/cyx/oop-group-project/src/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/cyx/oop-group-project/src -I/home/cyx/oop-group-project/src -I/home/cyx/oop-group-project/src/include -I/home/cyx/.gurobi811/linux64/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/8.3.0 -I/usr/include/c++/8.3.0/x86_64-pc-linux-gnu -I/usr/include/c++/8.3.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include-fixed -I/usr/include include/displaydialog.h -o moc_displaydialog.cpp
 
 moc_mainwindow.cpp: include/mainwindow.h \
 		include/MixDisplayer.h \
@@ -816,13 +810,13 @@ moc_mainwindow.cpp: include/mainwindow.h \
 		include/Solver.h \
 		include/displaydialog.h \
 		include/Graph.h \
-		/opt/gurobi811/linux64/include/gurobi_c++.h \
-		/opt/gurobi811/linux64/include/gurobi_c.h \
+		../../.gurobi811/linux64/include/gurobi_c++.h \
+		../../.gurobi811/linux64/include/gurobi_c.h \
 		include/ComMethod.h \
 		include/Show.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/fred/Projects/oop-group-project/src/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/fred/Projects/oop-group-project/src -I/home/fred/Projects/oop-group-project/src -I/home/fred/Projects/oop-group-project/src/include -I/opt/gurobi811/linux64/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/8.3.0 -I/usr/include/c++/8.3.0/x86_64-pc-linux-gnu -I/usr/include/c++/8.3.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include-fixed -I/usr/include include/mainwindow.h -o moc_mainwindow.cpp
+	/usr/bin/moc $(DEFINES) --include /home/cyx/oop-group-project/src/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/cyx/oop-group-project/src -I/home/cyx/oop-group-project/src -I/home/cyx/oop-group-project/src/include -I/home/cyx/.gurobi811/linux64/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/8.3.0 -I/usr/include/c++/8.3.0/x86_64-pc-linux-gnu -I/usr/include/c++/8.3.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include-fixed -I/usr/include include/mainwindow.h -o moc_mainwindow.cpp
 
 moc_MixDisplayer.cpp: include/MixDisplayer.h \
 		include/OnePassSynth.h \
@@ -831,7 +825,7 @@ moc_MixDisplayer.cpp: include/MixDisplayer.h \
 		include/Solver.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/fred/Projects/oop-group-project/src/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/fred/Projects/oop-group-project/src -I/home/fred/Projects/oop-group-project/src -I/home/fred/Projects/oop-group-project/src/include -I/opt/gurobi811/linux64/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/8.3.0 -I/usr/include/c++/8.3.0/x86_64-pc-linux-gnu -I/usr/include/c++/8.3.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include-fixed -I/usr/include include/MixDisplayer.h -o moc_MixDisplayer.cpp
+	/usr/bin/moc $(DEFINES) --include /home/cyx/oop-group-project/src/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/cyx/oop-group-project/src -I/home/cyx/oop-group-project/src -I/home/cyx/oop-group-project/src/include -I/home/cyx/.gurobi811/linux64/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/8.3.0 -I/usr/include/c++/8.3.0/x86_64-pc-linux-gnu -I/usr/include/c++/8.3.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.3.0/include-fixed -I/usr/include include/MixDisplayer.h -o moc_MixDisplayer.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -857,8 +851,8 @@ main.o: main.cpp include/mainwindow.h \
 		include/Solver.h \
 		include/displaydialog.h \
 		include/Graph.h \
-		/opt/gurobi811/linux64/include/gurobi_c++.h \
-		/opt/gurobi811/linux64/include/gurobi_c.h \
+		../../.gurobi811/linux64/include/gurobi_c++.h \
+		../../.gurobi811/linux64/include/gurobi_c.h \
 		include/ComMethod.h \
 		include/Show.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
@@ -871,16 +865,16 @@ mainwindow.o: mainwindow.cpp include/mainwindow.h \
 		include/Solver.h \
 		include/displaydialog.h \
 		include/Graph.h \
-		/opt/gurobi811/linux64/include/gurobi_c++.h \
-		/opt/gurobi811/linux64/include/gurobi_c.h \
+		../../.gurobi811/linux64/include/gurobi_c++.h \
+		../../.gurobi811/linux64/include/gurobi_c.h \
 		include/ComMethod.h \
 		include/Show.h \
 		include/GraphCreator.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 Graph.o: Graph.cc include/Graph.h \
-		/opt/gurobi811/linux64/include/gurobi_c++.h \
-		/opt/gurobi811/linux64/include/gurobi_c.h \
+		../../.gurobi811/linux64/include/gurobi_c++.h \
+		../../.gurobi811/linux64/include/gurobi_c.h \
 		include/ComMethod.h \
 		include/Show.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Graph.o Graph.cc
@@ -902,8 +896,8 @@ MixDisplayer.o: MixDisplayer.cpp include/MixDisplayer.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MixDisplayer.o MixDisplayer.cpp
 
 Show.o: Show.cc include/Show.h \
-		/opt/gurobi811/linux64/include/gurobi_c++.h \
-		/opt/gurobi811/linux64/include/gurobi_c.h
+		../../.gurobi811/linux64/include/gurobi_c++.h \
+		../../.gurobi811/linux64/include/gurobi_c.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Show.o Show.cc
 
 moc_displaydialog.o: moc_displaydialog.cpp 

@@ -468,8 +468,8 @@ void Graph::translator() {
 		}
 	}
 
-  //const int detect = count;
-  //count++;
+  const int detect = count;
+  count++;
 
   const int waste = count;
   count++;
@@ -479,14 +479,14 @@ void Graph::translator() {
 		int num = TCS[i].second;
 		for (int j = 0; j < num; j++) {
 			int temp1 = -1;
-			for (int k = 0; k < (int)memory[c].size(); k+=2)
+			for (int k = 0; k < (int)memory[c].size(); k++)
 				if (memory[c][k][1]>0) {
 					temp1 = memory[c][k][0];
-					memory[c][k][1]=0;
-          edge.push_back(new int[2]{temp1,waste});
+					memory[c][k][1]--;
 					break;
 				}
-			//edge.push_back(new int[2]{ temp1, detect });
+      if(temp1!=-1)
+        edge.push_back(new int[2]{ temp1, detect });
 		}
 	}
 
@@ -514,7 +514,7 @@ void Graph::translator() {
 	for (int i = 0; i < (int)mix.size(); i++)
         out << "NODE (" << mix[i][0] << ", MIX, " << mix[i][1] << ", 1, MIX" << i << ")" << endl;
 
-	//out << "NODE (" << detect << ", OUTPUT, output, OUT1)" << endl;
+	out << "NODE (" << detect << ", OUTPUT, output, OUT1)" << endl;
 
 	out << "NODE (" << waste << ", OUTPUT, output, OUT1)" << endl;
 
@@ -549,7 +549,7 @@ void Graph::translator() {
 		out << "MOD (MIX" << i << ", 2, 3)" << endl;
 	}
 
-    out << "MOD (OUT1, " << (dis0.size() + dis1.size()) / 10 + 1 << ")" << endl;
+    out << "MOD (OUT1, " << 2 << ")" << endl;
 
     out.close();
     for(int i = 0; i < 10; i++){
