@@ -1,4 +1,4 @@
-#include "include/MixDisplayer.h"
+#include "MixDisplayer.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
