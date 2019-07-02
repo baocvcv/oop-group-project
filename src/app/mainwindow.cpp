@@ -87,23 +87,23 @@ void MainWindow::run(){
     int w2 = w2Input->value();
 
     // create graph
-//    Graph* graph;
-//    GraphCreator creat;
+    Graph* graph;
+    GraphCreator creat;
 
-//    graph = creat.CreatGraph(env);
+    graph = creat.CreatGraph(env);
 
-//    if(!graph->load(filepath)){
-//        // prompt error
-//        return;
-//    }
-//    int N = graph->get_d();
-//    graph->Init(N);
-//    graph->compute();
-//    graph->print();
-//    graph->translator();
+    if(!graph->load(filepath)){
+        // prompt error
+        return;
+    }
+    int N = graph->get_d();
+    graph->Init(N);
+    graph->compute();
+    graph->print();
+    graph->translator();
 
     OnePassSynth ops("input.txt");
-    for(int t = 2; t <= time; t++){
+    for(int t = time/2; t <= time; t++){
         if(ops.solve(width, height, t)){
             ops.print_solution();
             if(displayer != nullptr){

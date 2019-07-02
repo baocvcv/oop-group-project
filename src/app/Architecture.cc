@@ -68,7 +68,9 @@ void Architecture::build_from_file(const string &filename){
         }else if(type == "EDGE"){
             int u = stoi(params[0]);
             int v = stoi(params[1]);
+            int w = stoi(params[2]);
             edges_.push_back(make_pair(u-1, v-1));
+            edge_weights_.push_back(w);
         }else if(type == "NODE"){
             Module m;
             m.id_ = stoi(params[0]) - 1;

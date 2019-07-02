@@ -259,8 +259,8 @@ void Graph::Remove() {
 
 bool Graph::check() {
 	cout << endl;
-	int source1 = (int)model.getVarByName("source1").get(GRB_DoubleAttr_X);
-	int source0 = (int)model.getVarByName("source0").get(GRB_DoubleAttr_X);
+    int source1 = (int)model.getVarByName("source1").get(GRB_DoubleAttr_X);
+    int source0 = (int)model.getVarByName("source0").get(GRB_DoubleAttr_X);
 	int f[1024][1024] = { 0 };
 
 	int point1 = pow(2, d_tot - 1) + 1;
@@ -304,11 +304,16 @@ void Graph::translator() {
 	if (!out.is_open()) {
 		cout << "Open Failed" << endl;
 		return;
-	}
-	int source1 = (int)model.getVarByName("source1").get(GRB_DoubleAttr_X);
-	int source0 = (int)model.getVarByName("source0").get(GRB_DoubleAttr_X);
-	int f[10][1025][1025];
-	int maxc = pow2(d_tot);
+    }
+    int ***f;//f[10][1025][1025];
+    f = new int**[10];
+    for(int i = 0; i < 10; i++){
+        f[i] = new int*[1025];
+        for(int j = 0; j < 1025; j++){
+            f[i][j] = new int[1025];
+        }
+    }
+    int maxc = pow2(d_tot);
 
 	for (int i = 0; i < 10; i++)
 		for (int j = 0; j < 1025; j++)
@@ -498,8 +503,8 @@ void Graph::translator() {
 		}
 	}
 
-	out << "DAGNAME ( N = " << d_tot << " )" << endl;
-	for (int i = 0; i < (int)dis0.size(); i++) 
+    out << "DAGNAME (GRAPH" << d_tot << ")" << endl;
+    for (int i = 0; i < (int)dis0.size(); i++)
 		out << "NODE (" << dis0[i][0] << ", DISPENSE, 0, " << dis0[i][1] << ", DIS0)" << endl;
 
 	for (int i = 0; i < (int)dis1.size(); i++)
@@ -507,15 +512,41 @@ void Graph::translator() {
 
 
 	for (int i = 0; i < (int)mix.size(); i++)
-		out << "NODE (" << mix[i][0] << ", MIX, " << mix[i][1] << ", 2, MIX" << i << ")" << endl;
+        out << "NODE (" << mix[i][0] << ", MIX, " << mix[i][1] << ", 1, MIX" << i << ")" << endl;
 
 	for (int i = 0; i < (int)target.size(); i++) 
 		out << "NODE (" << target[i][0] << ", DETECT, " << target[i][1] << ", 1, DETECT1)" << endl;
 
 	out << "NODE (" << waste << ", OUTPUT, output, OUT1)" << endl;
 
-	for (int i = 0; i < (int)edge.size(); i++)
-		out << "EDGE (" << edge[i][0] << ", " << edge[i][1] << ")" << endl;
+    for (int i = 0; i < (int)edge.size(); i++){
+        out << "EDGE (" << edge[i][0] << ", " << edge[i][1]<<", ";
+        int temp = -1;
+        for(int j=0;j<dis0.size();j++)
+            if(dis0[j][0] == edge[i][0]){
+                temp = 0;
+                break;
+            }
+        if(temp==-1)
+            for(int j=0;j<dis1.size();j++)
+                if(dis1[j][0] == edge[i][0]){
+                    temp = 1;
+                    break;
+                }
+        if(temp==-1)
+            for(int j=0;j<mix.size();j++)
+                if(mix[j][0] == edge[i][0]){
+                    temp = mix[j][1];
+                    break;
+                }
+        if(temp==-1)
+            for(int j=0;j<target.size();j++)
+                if(target[j][0] == edge[i][0]){
+                    temp = target[j][1];
+                    break;
+                }
+        out << temp << ")" << endl;
+    }
 
 	out << "TIME (9999)" << endl;
 	out << "SIZE (100, 100)" << endl;
@@ -526,6 +557,15 @@ void Graph::translator() {
 	}
 
 	out << "MOD (OUT1, " << (dis0.size() + dis1.size()) / 10 << ")" << endl;
+
+    out.close();
+    for(int i = 0; i < 10; i++){
+        for(int j = 0; j < 1025; j++){
+            delete []f[i][j];
+        }
+        delete []f[i];
+    }
+    delete []f;
 
 	return;
 }

@@ -9,6 +9,7 @@ class Architecture {
 public:
     std::string label_;
     std::vector<std::pair<int, int> > edges_;
+    std::vector<int> edge_weights_;
     std::vector<std::vector<int> > forward_edges_;
     std::vector<std::vector<int> > backward_edges_;
     std::map<std::string, Module> modules_;

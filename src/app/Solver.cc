@@ -33,7 +33,7 @@ bool Solver::solve(){
                     result_ = solver_.check();
                     if(result_ == sat){
                         model_ = solver_.get_model();
-                        cout << "Satisfiable" << endl;
+                        cout << "Sat - (w=" << width << ", h=" << height << ", t=" << time << ")" << endl;
                         //cout << "Printing sat constraints to file" << endl;
 
                         return true;
@@ -58,12 +58,12 @@ bool Solver::solve(int width, int height, int time){
         result_ = solver_.check();
         if(result_ == sat){
             model_ = solver_.get_model();
-            cout << "Satisfiable" << endl;
+            cout << "Sat - (w=" << width << ", h=" << height << ", t=" << time << ")" << endl;
             // cout << "Printing sat constraints to file" << endl;
 
             return true;
         }else{
-            cout << "Unsatisfiable" << endl;
+            cout << "Unsat - (w=" << width << ", h=" << height << ", t=" << time << ")" << endl;
             return false;
         }
     } catch(z3::exception e){
@@ -191,7 +191,7 @@ vector<vector<vector<pair<int, int>>>> Solver::get_grid(){
                 }
                 for(int i = 0; i < no_of_edges_; i++){
                     if(eq(model_.eval(c_[t][x][y][i]), TRUE)){
-                        res[t][y].emplace_back(i, 1);
+                        res[t][y].emplace_back(i, arch_.edge_weights_[i]);
                         flag = true;
                         break;
                     }
