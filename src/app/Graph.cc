@@ -556,7 +556,7 @@ void Graph::translator() {
 		out << "MOD (MIX" << i << ", 2, 3)" << endl;
 	}
 
-	out << "MOD (OUT1, " << (dis0.size() + dis1.size()) / 10 << ")" << endl;
+    out << "MOD (OUT1, " << (dis0.size() + dis1.size()) / 10 + 1 << ")" << endl;
 
     out.close();
     for(int i = 0; i < 10; i++){
