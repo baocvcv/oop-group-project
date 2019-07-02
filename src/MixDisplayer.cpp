@@ -90,7 +90,6 @@ MixDisplayer::MixDisplayer(int M, int N, int MaxFrame,OnePassSynth& ops, QWidget
 	connect(ShowPixBtn, &QPushButton::clicked, this, &MixDisplayer::ShowPix);
 
 	repaint();
-	timerID = startTimer(DELAY);
 }
 
 void MixDisplayer::loadResource() {
