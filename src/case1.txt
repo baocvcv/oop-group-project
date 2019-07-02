@@ -1,6 +1,0 @@
-costs: 1
-coutb: 1
-N: 3
-num: 1
-TS: 4
-si: 2

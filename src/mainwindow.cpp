@@ -12,8 +12,6 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-    resize(150, 230);
-
     displayer = nullptr;
 
     window = new QWidget;
@@ -42,12 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     timeInput->setMinimum(1);
     timeInput->setSingleStep(1);
     timeInput->setValue(9);
-    auto label4 = new QLabel("Weight1", this);
-    w1Input = new QSpinBox(this);
-    w1Input->setMinimum(1);
-    auto label5 = new QLabel("Weight2", this);
-    w2Input = new QSpinBox(this);
-    w2Input->setMinimum(2);
+
 
     gridBox->addWidget(label1, 1, 1);
     gridBox->addWidget(widthInput, 1, 2);
@@ -55,10 +48,6 @@ MainWindow::MainWindow(QWidget *parent) :
     gridBox->addWidget(heightInput, 2, 2);
     gridBox->addWidget(label3, 3, 1);
     gridBox->addWidget(timeInput, 3, 2);
-    gridBox->addWidget(label4, 4, 1);
-    gridBox->addWidget(w1Input, 4, 2);
-    gridBox->addWidget(label5, 5, 1);
-    gridBox->addWidget(w2Input, 5, 2);
 
     vBox->addLayout(gridBox);
 
@@ -81,9 +70,6 @@ void MainWindow::run(){
     int height = heightInput->value();
     int time = timeInput->value();
 
-    int w1 = w1Input->value();
-    int w2 = w2Input->value();
-
     // create graph
     Graph* graph;
     GraphCreator creat;
@@ -100,7 +86,7 @@ void MainWindow::run(){
     graph->translator();
 
     OnePassSynth ops("input.txt");
-    for(int t = time/2; t <= time; t++){
+    for(int t = time - 2; t <= time + 2; t++){
         if(ops.solve(width, height, t)){
             ops.print_solution();
             if(displayer != nullptr){

@@ -79,16 +79,16 @@ private:
 
 	//Í¼Ïñ×ÊÔ´
 #ifdef DEBUG
-#define DETECT_PATH "/home/fred/Projects/oop-group-project/src/resources/detect.png"
-#define DISP_PATH "/home/fred/Projects/oop-group-project/src/resources/disp.png"
-#define SINK_PATH "/home/fred/Projects/oop-group-project/src/resources/sink.png"
-#define DROPLET_PATH "/home/fred/Projects/oop-group-project/src/resources/droplet.png"
-#define PAUSE_PATH "/home/fred/Projects/oop-group-project/src/resources/pause.png"
-#define START_PATH "/home/fred/Projects/oop-group-project/src/resources/start.png"
-#define RESTART_PATH "/home/fred/Projects/oop-group-project/src/resources/restart.png"
-#define NEXT_STEP_PATH "/home/fred/Projects/oop-group-project/src/resources/next_step.png"
-#define SELECT_FILE_PATH "/home/fred/Projects/oop-group-project/src/resources/file.png"
-#define ICON_PATH "/home/fred/Projects/oop-group-project/src/resources/icon.png"
+#define DETECT_PATH "./resources/detect.png"
+#define DISP_PATH "./resources/disp.png"
+#define SINK_PATH "./resources/sink.png"
+#define DROPLET_PATH "./resources/droplet.png"
+#define PAUSE_PATH "./resources/pause.png"
+#define START_PATH "./resources/start.png"
+#define RESTART_PATH "./resources/restart.png"
+#define NEXT_STEP_PATH "./resources/next_step.png"
+#define SELECT_FILE_PATH "./resources/file.png"
+#define ICON_PATH "./resources/icon.png"
 
 #define PROCESSOR_PATH "resources\\src.exe" // TODO: need change when not needed
 #endif // DEBUG

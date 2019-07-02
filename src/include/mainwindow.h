@@ -37,8 +37,6 @@ private:
     QSpinBox* widthInput;
     QSpinBox* heightInput;
     QSpinBox* timeInput;
-    QSpinBox* w1Input;
-    QSpinBox* w2Input;
     QPushButton* confirmBtn;
 
     std::string filepath;

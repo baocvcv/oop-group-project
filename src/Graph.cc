@@ -529,7 +529,7 @@ void Graph::translator() {
         if(temp==-1)
             for(int j=0;j<dis1.size();j++)
                 if(dis1[j][0] == edge[i][0]){
-                    temp = 1;
+                    temp = maxc;
                     break;
                 }
         if(temp==-1)
