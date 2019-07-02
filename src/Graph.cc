@@ -489,14 +489,14 @@ void Graph::translator() {
 		}
 	}
 
-  const int waste = count;
-  count++;
-  
-  for(int i=0;i<(int)target.size();i++){
-    edge.push_back(new int[2]{target[i][0],waste});
-  }
+	const int waste = count;
+	count++;
+	
+	for(int i=0;i<(int)target.size();i++){
+		edge.push_back(new int[2]{target[i][0],waste});
+	}
 
-  
+	
 
 	for (int i = 0; i <= maxc; i++) {
 		if ((int)memory[i].size() == 0)

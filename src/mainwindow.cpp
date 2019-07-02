@@ -101,7 +101,7 @@ void MainWindow::run(){
     graph->translator();
 
     OnePassSynth ops("input.txt");
-    for(int t = time/2; t <= time; t++){
+    for(int t = time - 2; t <= time + 2; t++){
         if(ops.solve(width, height, t)){
             ops.print_solution();
             if(displayer != nullptr){
@@ -113,6 +113,8 @@ void MainWindow::run(){
 //            resize(width*100 + 400, height*100 + 300);
             displayer = new DisplayDialog(height, width, time+1, ops, this);
             displayer->show();
+
+            break;
         }
     }
 }

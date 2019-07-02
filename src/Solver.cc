@@ -541,11 +541,20 @@ void Solver::add_movement(){
                                         if(arch_.edges_[m].second == id){
                                             expr_vector appear_before_mix(ctx_);
                                             expr_vector diappear_on_mix(ctx_);
-                                            for(int k = 0; k < 5; k++){
+                                            /* for(int k = 0; k < 5; k++){
                                                 int xx = x + dx[k];
                                                 int yy = y + dy[k];
                                                 if(is_point_inbound(xx, yy)){
                                                     appear_before_mix.push_back(c_[t-d-1][xx][yy][m]);
+                                                }
+                                            } */
+                                            for(int ddx = 0; ddx < mixer_w; ddx++){
+                                                for(int ddy = 0; ddy < mixer_h; ddy++){
+                                                    int x_new = x0 + ddx;
+                                                    int y_new = y0 + ddy;
+                                                    if(is_point_inbound(x_new, y_new)){
+                                                        appear_before_mix.push_back(c_[t-d-1][x_new][y_new][m]);
+                                                    }
                                                 }
                                             }
                                             for(int xx = 0; xx < width_cur_; xx++){

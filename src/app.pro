@@ -23,8 +23,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 CONFIG += c++11
-INCLUDEPATH += . ./include /home/cyx/.gurobi811/linux64/include
-LIBS += -lz3 -L/home/cyx/.gurobi811/linux64/lib -lgurobi_c++ -lgurobi81
+INCLUDEPATH += . ./include /opt/gurobi811/linux64/include
+LIBS += -lz3 -L/opt/gurobi811/linux64/lib -lgurobi_c++ -lgurobi81
 
 SOURCES += \
         main.cpp \
