@@ -24,7 +24,7 @@ private:
     // dispenser_(p,l)
     std::vector<std::vector<z3::expr>> dispenser_;
     // sink(p)
-    std::vector<z3::expr> sink_;
+    std::vector<std::vector<z3::expr>> sink_;
 
     Architecture& arch_;
     z3::context& ctx_;

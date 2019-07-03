@@ -94,11 +94,21 @@ void Solver::print_solution(ostream& out){
     out << endl;
 
     out << "Sink position(s): " << endl;
-    for(int p = 0; p < perimeter_cur_; p++){
-        if(eq(model_.eval(sink_[p]), TRUE)){
-            out << "Sink" << " at " << p << endl;
+    for(auto pair: arch_.modules_){
+        Module module = pair.second;
+        if(module.type_ == SINK){
+            for(int p = 0; p < perimeter_cur_; p++){
+                if(eq(model_.eval(sink_[p][module.id_]), TRUE)){
+                    out << module.label_ << " at " << p << endl;
+                }
+            }
         }
     }
+//    for(int p = 0; p < perimeter_cur_; p++){
+//        if(eq(model_.eval(sink_[p]), TRUE)){
+//            out << "Sink" << " at " << p << endl;
+//        }
+//    }
     out << endl;
 
     out << "Detector position(s): " << endl;
@@ -383,11 +393,13 @@ void Solver::init(int width, int height, int time){
     }
 
     // sink_(p)
-    //sink_.resize(perimeter_cur_);
+    sink_.resize(perimeter_cur_);
     for(int p = 0; p < perimeter_cur_; p++){
-        char name[50];
-        sprintf(name, "sink_(%d)", p);
-        sink_.push_back(ctx_.bool_const(name));
+        for(int l = 0; l < no_of_nodes_; l++){
+            char name[50];
+            sprintf(name, "sink_(%d, %d)", p, l);
+            sink_[p].push_back(ctx_.bool_const(name));
+        }
     }
 }
 
@@ -431,10 +443,12 @@ void Solver::add_consistency_constraints(){
     // in each position p outside of the grid, there may be at most one dispenser (this applies for all types l) or sink
     for(int p = 0; p < perimeter_cur_; p++){
         expr_vector v_tmp(ctx_);
-        v_tmp.push_back(sink_[p]);
+        //v_tmp.push_back(sink_[p]);
         for(auto module: arch_.modules_){
             if(module.second.type_ == DISPENSER){
                 v_tmp.push_back(dispenser_[p][module.second.id_]);
+            }else if(module.second.type_ == SINK){
+                v_tmp.push_back(sink_[p][module.second.id_]); // changed
             }
         }
         solver_.add(atmost(v_tmp, 1));
@@ -483,7 +497,7 @@ void Solver::add_placement_constraints(){
         }else if(module.second.type_ == SINK){
             expr_vector v_tmp(ctx_);
             for(int p = 0; p < perimeter_cur_; p++){
-                v_tmp.push_back(sink_[p]);
+                v_tmp.push_back(sink_[p][module.second.id_]);
             }
             solver_.add(atleast(v_tmp, module.second.desired_amount_));
             solver_.add(atmost(v_tmp, module.second.desired_amount_));
@@ -640,6 +654,7 @@ void Solver::add_movement(){
     // disappearance
     for(int m = 0; m < no_of_nodes_; m++){
         if(arch_.nodes_[m].type_ == SINK){
+            int id_sink = arch_.modules_[arch_.nodes_[m].label_].id_;
             expr_vector mix_vec(ctx_);
             for(int i = 0; i < no_of_edges_; i++){
                 if(arch_.edges_[i].second == m){
@@ -659,17 +674,18 @@ void Solver::add_movement(){
                                 expr disappear = c_[t-1][x][y][i] && d_tmp;
 
                                 expr_vector b_vec(ctx_); // there is a sink at reachable position
+
                                 if(x == 0){ // (x,y) on left edge
-                                    b_vec.push_back(sink_[perimeter_cur_ - 1 - y]);
+                                    b_vec.push_back(sink_[perimeter_cur_ - 1 - y][id_sink]);
                                 }
                                 if(x == width_cur_-1){ // right edge
-                                    b_vec.push_back(sink_[width_cur_ - 1 + y]);
+                                    b_vec.push_back(sink_[width_cur_ - 1 + y][id_sink]);
                                 }
                                 if(y == 0){ // top edge
-                                    b_vec.push_back(sink_[x]);
+                                    b_vec.push_back(sink_[x][id_sink]);
                                 }
                                 if(y == height_cur_-1){ // bottom edge
-                                    b_vec.push_back(sink_[2*width_cur_ + height_cur_ - 1 - x]);
+                                    b_vec.push_back(sink_[2*width_cur_ + height_cur_ - 1 - x][id_sink]);
                                 }
                                 if(b_vec.size() > 0){
                                     solver_.add(implies(disappear, mk_or(b_vec)));
