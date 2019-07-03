@@ -3,4 +3,4 @@ coutb: 1
 N: 3
 num: 2
 TS: 3 5
-si: 4 6
+si: 2 2
