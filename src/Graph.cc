@@ -482,7 +482,14 @@ void Graph::translator() {
 			for (int k = 0; k < (int)memory[c].size(); k++)
 				if (memory[c][k][1]>0) {
 					temp1 = memory[c][k][0];
-					memory[c][k][1]--;
+          if(num - j > memory[c][k][1]){
+            memory[c][k][1]=0;
+            j = j + memory[c][k][1] - 1;
+          }           
+          else{
+            memory[c][k][1] = memory[c][k][1] - num + j; 
+            j = 0;
+          }
 					break;
 				}
       if(temp1!=-1)
