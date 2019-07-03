@@ -223,18 +223,18 @@ std::vector<int> Solver::get_sink_dispenser_pos(){
     for(int p = 0; p < perimeter_cur_; p++){
         int num;
         bool flag = false;
-        if(eq(model_.eval(sink_[p]), TRUE)){
-            num = 1;
-            flag = true;
-        }else{
-            for(auto pair: arch_.modules_){
-                Module m = pair.second;
-                if(m.type_ == DISPENSER){
-                    if(eq(model_.eval(dispenser_[p][m.id_]), TRUE)){
-                        num = 2;
-                        flag = true;
-                        break;
-                    }
+        for(auto pair: arch_.modules_){
+            Module m = pair.second;
+            if(m.type_ == DISPENSER){
+                if(eq(model_.eval(dispenser_[p][m.id_]), TRUE)){
+                    num = 2;
+                    flag = true;
+                    break;
+                }
+            }else if(m.type_ == SINK){
+                if(eq(model_.eval(sink_[p][m.id_]), TRUE)){
+                    num = 1;
+                    flag = true;
                 }
             }
         }
