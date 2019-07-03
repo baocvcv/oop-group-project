@@ -248,10 +248,15 @@ void MixDisplayer::SelectFile() {
 }
 
 void MixDisplayer::ShowPix() {
-	QWidget* Png = new QWidget(this);
+    Png = new QWidget(this);
 	Png->setWindowFlag(Qt::Window);
-	Png->setWindowTitle("MixingStepTree");
-	Png->resize(1000, 1000);
+    Png->setWindowTitle("MixingStepTree");
+    QPixmap *pix = new QPixmap("input.png");
+    Png->resize(pix->width()+40, pix->height()+20);
+    pic = new QLabel(Png);
+    pic->setPixmap(*pix);
+    delete pix;
+
 	Png->show();
 }
 #pragma endregion

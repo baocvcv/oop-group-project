@@ -5,6 +5,7 @@
 #include <vector>
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QLabel>
 #include "OnePassSynth.h"
 
 #define DEBUG 1
@@ -123,7 +124,8 @@ private:
 
 	QString filepath;
 
-
+    QWidget* Png;
+    QLabel *pic;
 
 	int timerID;
 
